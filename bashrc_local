@@ -1,5 +1,7 @@
 # Add local binaries to PATH
 export PATH="/home/ifsmirnov/bin":$PATH
+# Add vim path (for algorab)
+export PATH="/home/ifsmirnov/vim/bin":$PATH
 
 # Modify prompt when in pkg-root environment
 if [ -n "$YANDEX_ENV" ] ; then

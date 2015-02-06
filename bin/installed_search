@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+sub installed {
+    my $name = shift;
+    return `dpkg -s $name 2>/dev/null` =~ /install ok installed/ ? '+' : '-';
+};
+
+my $query = shift;
+
+my @packages = (
+    map [chomp and (split / - /, $_, 2)], `apt-cache search $query`
+);
+
+for (@packages) {
+    print installed($_->[0]) . " $_->[0] - $_->[1]\n";
+}
