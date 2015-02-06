@@ -2,14 +2,21 @@
 
 function die { echo Dying: $@; exit 1; }
 
-REPO=https://github.com/ifsmirnov/dotrc.git
-which git || die Git not found
+REPO=git@github.com:ifsmirnov/dotrc.git
+which git >/dev/null || die Git not found
 
-DIR=$1
-if test -z $DIR; then
-    DIR=~/config
+echo conf=$CONFIG_DIR
+if test -z "$CONFIG_DIR"; then
+    CONFIG_DIR=~/config
 fi
 
-git clone $REPO $DIR || Cannot checkout repository into directory $DIR
+mkdir -p $CONFIG_DIR && rm -rf $CONFIG_DIR || Die Cannot initialize directory for cloning
+echo Cloning into $CONFIG_DIR
 
-$DIR/deploy.sh
+git clone $REPO $CONFIG_DIR || die Cannot checkout repository into directory $DIR
+echo Cloned OK
+
+cd $CONFIG_DIR
+./deploy.sh || die Cannot run deploy
+
+echo Done deploying, quitting
