@@ -7,18 +7,20 @@ rc=`\
     | sed "s:^./::g"\
     | sort`
 
+DIR=`pwd`
+
 echo "Making symlinks for .rc files"
 for f in $rc; do
     echo "  "$f
-    ln -sf ~/config/$f ~/.$f
+    ln -sf $DIR/$f ~/.$f
 done
 
 echo Proceeding special files
-if test -d ~/bin ; then
+if test -d ~/bin && ! test -L ~/bin ; then
     echo "  "Error: ~/bin directory exists. Please consider it manually.
 else
     echo "  "~/bin
-    ln -sf ~/config/bin ~/bin
+    ln -sf $DIR/bin ~
 fi
 
 
@@ -29,6 +31,6 @@ if ! test -d ~/.ssh  ; then
 fi
 
 echo "  ".ssh/config
-ln -sf ~/config/ssh_config ~/.ssh/config
+ln -sf $DIR/ssh_config ~/.ssh/config
 
 echo Done
