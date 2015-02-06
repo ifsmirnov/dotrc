@@ -1,0 +1,77 @@
+# Add local binaries to PATH
+export PATH="/home/ifsmirnov/bin":$PATH
+
+# Modify prompt when in pkg-root environment
+if [ -n "$YANDEX_ENV" ] ; then
+    export PS1='\[\033[31;1m\]+\u@\h:./\W$\[\033[0m\] '
+else
+    export PS1='\[\033[31;1m\]\u@\h:./\W$\[\033[0m\] '
+fi
+
+# Quickly enter pkg-root environment
+alias senv="~/work/pkg-root/set_environment.sh"
+
+# Various env vars for development
+export DEBFULLNAME="Ivan Smirnov"
+export EMAIL="ifsmirnov@yandex-team.ru"
+export DEBEMAIL="ifsmirnov@yandex-team.ru"
+export QT_HOME="/home/ifsmirnov/.Qt5.2.1/5.2.1/gcc_64"
+export ANDROID_HOME="/home/ifsmirnov/dev/android-sdk-linux"
+export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
+export ANDROID_NDK="/home/ifsmirnov/dev/android-ndk-r9d"
+export CCACHE="ccache"
+# export CCACHE="tools-ymccache-client --storage=http://ccache01h.maps.dev.yandex.net"
+
+# Hmmm...
+function command_not_found_handle {
+    echo Hmmm... Are you sure you really wanted to type THIS???
+}
+
+EDITOR=vim
+
+# ACM shortcuts
+alias gd="g++ -std=c++0x -ggdb -DHOME";
+alias gp="g++-4.6 -std=c++0x -pg -DHOME";
+
+# Work shortcuts
+# Go to the last used directory
+alias cdl="cd \"\`ls -c --group-directories-first | head -n 1\`\""
+alias fnd="find . -name"
+alias sl=""
+alias LS=""
+alias ack="ack-grep"
+# Show most place consuming subdirectories
+alias dul="du -ahd 1 | sort -rh | head"
+
+# Quickly go backwards in directory tree
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
+
+# Colorful messaging
+function red { echo -e "\033[31;1m$@\033[0;m" ; }
+function green { echo -e "\033[32;1m$@\033[0;m" ; }
+function yellow { echo -e "\033[33;1m$@\033[0;m" ; }
+function blue { echo -e "\033[36;1m$@\033[0;m" ; }
+function Red { echo -e "\033[31;3m$@\033[0;m" ; }
+function Green { echo -e "\033[32;3m$@\033[0;m" ; }
+function Yellow { echo -e "\033[33;3m$@\033[0;m" ; }
+function Blue { echo -e "\033[36;3m$@\033[0;m" ; }
+
+# Grep anything without removing non-matching lines
+function color { egrep --color=always "$|$1"; }
+
+# Print a message with a system notifier
+alias msg="notify-send -u critical"
+
+# Clipboard aliases
+function cl {
+    if [ "$1" == "i" ]; then
+        xclip -i -sel clip
+    elif [ "$1" == "o" ]; then
+        xclip -o -sel clip
+    fi
+}

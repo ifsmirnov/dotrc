@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+my @exclude_list = ("to", "is", "mp", "ml", "pb", "if", "no", "on", "in", "at", "as");
+my @special = ("lower_bound", "upper_bound");#, "random_shuffle");
+
+sub getLexems {
+  $_ = shift;
+  my ($x, %a);
+
+  while ($_) {
+    ($x, $_) = /(\w+)(.*)$/s;
+    $a{$x} = "" if $_;
+  }
+  return sort grep {
+    length($_) >= 7 and
+    /(^[a-z]*[A-Z][a-zA-Z]*_?$)|(^[a-z]*_[a-z_]*$)/
+  } (keys %a, @special);
+}
+
+sub getAbbr {
+  my $s = shift;
+  my $abbr;
+  if ($s =~ /_./) {
+    $abbr = join "", grep /[a-z]/, $s =~ /(^|_)(.)/g;
+  } else {
+    $abbr = join "", grep /[A-Z]/, split //, $s;
+    my $first_char = substr($s, 0, 1);
+    $abbr = $first_char . $abbr if $first_char =~ /[a-z]/;
+  }
+  if ($s =~ /_$/) {
+      $abbr .= "_";
+  }
+  return $abbr if length($abbr) > 1 and length($abbr) <= 20 and not $abbr ~~ @exclude_list;
+}
+
+sub printAbbrCmdList {
+  for (@_) {
+    print ":iab " . getAbbr($_) . " $_\n" if getAbbr($_);
+  }
+}
+
+printAbbrCmdList(getLexems(join "", <>));

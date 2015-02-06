@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+sub get_state {
+    my $id = shift;
+    my $statusline = (grep /Enabled/, split /\n/, `xinput list-props $id`)[0];
+    $statusline =~ /\s([0-9]+)$/;
+    return $1;
+}
+
+my $list = (grep /TouchPad/, split /\n/, `xinput --list`)[0];
+$list =~ /id=([0-9]+)/;
+my $id = $1;
+
+my $cmd = shift;
+$cmd = 1 - get_state($id) unless defined $cmd;
+system("xinput set-prop $1 'Device Enabled' $cmd");

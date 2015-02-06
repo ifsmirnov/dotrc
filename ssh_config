@@ -1,0 +1,8 @@
+ForwardAgent yes
+
+Host algorab rug vega
+	HostName %h.maps.dev.yandex.net
+    ForwardX11 yes
+
+Host router-tst
+	HostName \"router01e.tst.maps.yandex.ru\"

@@ -1,0 +1,8 @@
+#!/bin/bash
+while true; do
+    if ping ya.ru 2>/dev/null; then
+        notify-send -u critical "OK" "Internet access granted!"
+        break
+    fi
+    sleep 1
+done

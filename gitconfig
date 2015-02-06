@@ -1,0 +1,14 @@
+[user]
+    name = Ivan Smirnov
+    email = ifsmirnov@yandex-team.ru
+[alias]
+    l = log --graph --color --decorate=full
+    df = diff --color
+    s = status -s
+    b = branch
+[core]
+    editor = vim 
+[diff]
+    algorithm = patience
+[push]
+    default = matching
