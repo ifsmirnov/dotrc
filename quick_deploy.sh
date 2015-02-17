@@ -10,7 +10,7 @@ if test -z "$CONFIG_DIR"; then
     CONFIG_DIR=~/config
 fi
 
-mkdir -p $CONFIG_DIR && rm -rf $CONFIG_DIR || Die Cannot initialize directory for cloning
+mkdir -p $CONFIG_DIR && rm -rf $CONFIG_DIR || die Cannot initialize directory for cloning
 echo Cloning into $CONFIG_DIR
 
 git clone $REPO $CONFIG_DIR || die Cannot checkout repository into directory $DIR

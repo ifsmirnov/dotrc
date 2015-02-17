@@ -2,6 +2,7 @@
 export PATH="/home/ifsmirnov/bin":$PATH
 # Add vim path (for algorab)
 export PATH="/home/ifsmirnov/vim/bin":$PATH
+export VIMRUNTIME=/home/ifsmirnov/vim/runtime
 
 # Modify prompt when in pkg-root environment
 if [ -n "$YANDEX_ENV" ] ; then
